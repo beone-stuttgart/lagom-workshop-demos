@@ -1,0 +1,10 @@
+@import models.forms.Person
+@(form: Form[Person])
+
+@main("Hello world!") {
+    @helper.form(action = routes.HelloWorld.submit()) {
+        @helper.inputText(form("firstName"))
+        @helper.inputText(form("lastName"))
+        <input type="submit" value="Ok!" />
+    }
+}

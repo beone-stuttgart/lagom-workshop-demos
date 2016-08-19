@@ -1,0 +1,22 @@
+@import com.beone.lagom.organize.api.models.PresentBaseInformation
+@import models.forms.Contribution
+@(presentId: String, info: PresentBaseInformation, form: Form[Contribution])
+
+@main(s"Mitschenken - ${info.title}") {
+    <div class="container">
+        <h1>@info.title</h1>
+        <p>Organisiert von: @info.organisator</p>
+        <p>Deadline: @info.deadline</p>
+        <hr />
+        <p>@info.description</p>
+        <hr />
+    </div>
+    <div class="container">
+        @helper.form(action = routes.ContributeApplication.submit(presentId)) {
+            @helper.inputText(form("name"))
+            @helper.inputText(form("mail"))
+            @helper.inputText(form("amount"))
+            <input type="submit" value="Ok!" />
+        }
+    </div>
+}

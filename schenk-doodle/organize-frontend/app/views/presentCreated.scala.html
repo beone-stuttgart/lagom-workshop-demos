@@ -1,0 +1,13 @@
+@(title: String, contributeUrl: String, adminUrl: String)
+@main("Geschenk angelegt"){
+    <h1>Glückwunsch: Dein Geschenk '@title' wurde erzeugt</h1>
+    <p>Du kannst nun deinen Freunden den Link zu Contributions geben und die Fortschritte über die Admin-Seite beobachten.</p>
+    <p>Link für Beiträge: <a href="@contributeUrl" target="_blank">@contributeUrl</a></p>
+    <p>Link für Administration: <a href="@adminUrl" target="_blank">@adminUrl</a></p>
+    <p>&nbsp;</p>
+    <p>Dir wurde eine Mail geschickt mit diesen Informationen.</p>
+    <p>&nbsp;</p>
+    <p>Diese Informationen werden wir dir in Kürze auch per Mail schicken.</p>
+    <p>&nbsp;</p>
+    <p>Viel Spass!</p>
+}

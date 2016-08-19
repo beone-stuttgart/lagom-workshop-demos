@@ -1,0 +1,5 @@
+GET  /                                 controllers.OrganizeApplication.index()
+POST /organize/new-present.htm         controllers.OrganizeApplication.submitNewPresent()
+GET  /organize/new-present.htm         controllers.OrganizeApplication.newPresent()
+GET  /organize/:id/:token/edit.htm     controllers.OrganizeApplication.editPresent(id:String, token: String)
+GET  /organize/assets/*file            controllers.Assets.at(path="/public", file)

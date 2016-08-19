@@ -1,0 +1,13 @@
+@import models.NewPresentFormModel
+@(form: Form[NewPresentFormModel])
+@main("Neues Geschenk"){
+    @helper.form(action = routes.OrganizeApplication.submitNewPresent(), 'id -> "new-present-form", 'enctype -> "multipart/form-data") {
+        @helper.inputText(form("organisatorName"))
+        @helper.inputText(form("organisatorMail"))
+        @helper.inputText(form("title"))
+        @helper.inputDate(form("deadline"), 'placeholder -> "yyyy-mm-dd")
+        @helper.textarea(form("description"))
+        @helper.inputText(form("wishlistUrl"))
+        <input type="submit" value="Neues Geschenk anlegen" />
+    }
+}

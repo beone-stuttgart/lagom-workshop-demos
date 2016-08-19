@@ -1,0 +1,3 @@
+GET  /                  controllers.HelloWorld.index()
+POST /                  controllers.HelloWorld.submit()
+GET  /assets/*file      controllers.Assets.at(path="/public", file)

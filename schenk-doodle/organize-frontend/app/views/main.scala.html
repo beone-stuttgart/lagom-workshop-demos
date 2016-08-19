@@ -1,0 +1,42 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/mytheme.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <span class="navbar-brand">Gemeinschaftsgeschenk</span>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/organize/new-present.htm">Neues Geschenk</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        @if(!flash.isEmpty) {
+            <div class="container">
+                @if(flash.containsKey("error")) {
+                    <div class="alert alert-danger" role="alert">@flash.get("error")</div>
+                }
+                @if(flash.containsKey("success")) {
+                    <div class="alert alert-success" role="alert">@flash.get("success")</div>
+                }
+            </div>
+        }
+        <div class="container">
+            @content
+        </div>
+    </body>
+    <script src="@routes.Assets.at("lib/jquery/jquery.min.js")"></script>
+    <script src="@routes.Assets.at("lib/bootstrap/js/bootstrap.min.js")"></script>
+</html>

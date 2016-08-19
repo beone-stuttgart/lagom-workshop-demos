@@ -1,0 +1,32 @@
+@import controllers.model.EditData
+@(data : EditData)
+@main("Geschenk bearbeiten"){
+    <h1>@data.present.title</h1>
+    <p><b>Deadline</b>: @data.present.deadline</p>
+    <p><b>Beschreibung:</b><br/>@data.present.description</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <h3>Beiträge von:</h3>
+    <p>Folgende Leute haben Beiträge zum Geschenk versprochen.</p>
+    <ul>
+        @if(data.contributions == null) {
+            <li>Bisher keine Beiträge</li>
+        } else {
+            @data.contributions.getContributions.map { item =>
+                <li>@item.getName() : @item.getAmount() (@{if(item.getConfirmed()) "bestätigt" else "nicht bestätigt"})</li>
+            }
+        }
+    </ul>
+    <p>&nbsp;</p>
+    <h3>Wishlist:</h3>
+    @if(data.wishlist==null || data.wishlist.items==null){
+        <p>Keine Wunschliste hinterlegt</p>
+    } else {
+        <p>Auf der Wunschliste stehten folgende Artikel</p>
+        <ul>
+        @data.wishlist.items.map {item =>
+            <li><a href="@item.link">@item.name</a> (@{if(item.price != null && !item.price.isEmpty) item.price else "Preis unbekannt" })</li>
+        }
+        </ul>
+    }
+}

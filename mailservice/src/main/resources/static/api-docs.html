@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="BeOne Stuttgart GmbH, Armin Bauer">
+
+    <title>Mail Mock-Micro-Service</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/jumbotron-narrow.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a href="/index.html">Home</a></li>
+                    <li role="presentation" class="active"><a href="/api-docs.html">API Docs</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">BeOne Mock-Mail-Microservice</h3>
+        </div>
+
+        <div class="jumbotron">
+            <h1>API Documentation for the Mailer Service</h1>
+            <p class="lead">
+                This is a mockup microservice for development. Use this api doc for sending and recieving mail through the mock microservice. No actual mail will be sent, it's only stored and viewed in this web frontend.
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Send Mail</h2>
+                <h3>CURL</h3>
+                <p>Sending a request</p>
+                <pre>
+curl -i -X POST -H "Content-Type:application/json" -d '{"recipients": ["test@test.com"], "subject": "subject", "contents": "content"}' "http://127.0.0.1:8080/api/send"
+                </pre>
+                <p>Expected Response</p>
+                <pre>
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Thu, 11 Aug 2016 12:19:34 GMT
+
+{"message":"ok","success":true}
+                </pre>
+
+                <h2>Get Mails</h2>
+                <h3>CURL</h3>
+                <p>Sending a request</p>
+                <pre>
+curl -i -X GET -H Accept:application/json "http://127.0.0.1:8080/api/search?q=1&page=0"
+                </pre>
+                <p>Response to expect</p>
+                <pre>
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Thu, 11 Aug 2016 12:21:45 GMT
+
+[{"id":10,"recipient":"test@test.com","subject":"subject","contents":"content","sentAt":"2016-08-11T16:26:20.587"}}}]
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

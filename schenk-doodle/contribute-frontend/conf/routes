@@ -1,0 +1,4 @@
+GET  /contribute/:presentId          controllers.ContributeApplication.contribute(presentId:String)
+POST /contribute/:presentId          controllers.ContributeApplication.submit(presentId:String)
+GET  /contribute/:presentId/confirm  controllers.ContributeApplication.confirmLink(presentId:String, mail:String, hash:String)
+GET  /contribute/assets/*file        controllers.Assets.at(path="/public", file)

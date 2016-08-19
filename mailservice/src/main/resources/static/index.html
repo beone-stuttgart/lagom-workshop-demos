@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="BeOne Stuttgart GmbH, Armin Bauer">
+
+    <title>Mail Mock-Micro-Service</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- datatable css -->
+    <link href="/webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/webjars/datatables/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <!-- lightbox -->
+    <link href="/webjars/featherlight/1.3.5/release/featherlight.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/jumbotron-narrow.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="/index.html">Home</a></li>
+                <li role="presentation"><a href="/api-docs.html">API Docs</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">BeOne Mock-Mail-Microservice</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Get your Mail</h1>
+        <p class="lead">Use this to query your mail from the service. Use the filter to find mails by recipient address.</p>
+    </div>
+
+    <div class="row marketing">
+        <form onsubmit="updateTable(); return false;">
+        <div class="col-lg-12">
+            <label for="filter-mail">Mail</label>
+            <input type="text" name="filter-mail" id="filter-mail" />
+            <button type="submit" class="btn btn-primary" onclick="updateTable()">Check Mail</button>
+        </div>
+        </form>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-lg-12">
+            <table id="table">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Sent at</td>
+                        <td>Recipient</td>
+                        <td>Subject</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2016 BeOne Stuttgart GmbH</p>
+    </footer>
+</div> <!-- /container -->
+
+<script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/webjars/datatables/1.10.12/js/dataTables.jqueryui.min.js"></script>
+<script type="text/javascript" src="/webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/webjars/featherlight/1.3.5/release/featherlight.min.js"></script>
+<script type="text/javascript"><!--
+function initializeTable() {
+    var table = $('#table').DataTable({
+        "ajax": {
+            "url": '/api/search',
+            "dataSrc": ''
+        },
+        "columns": [
+            { "data": 'id' },
+            { "data": 'sentAt' },
+            { "data": 'recipient' },
+            { "data": 'subject' },
+            { "render": function(data, type, row) {
+                return '<a href="#" class="btn btn-default">Show content</a>'
+            }}
+        ]
+    });
+
+    $('#table').find('tbody').on('click', 'a.btn', function() {
+        var data = table.row($(this).parents('tr')).data();
+
+        var element = $('<div id="mailLightbox"><table border="0" width="100%"><tr><td valign="top">Recipient</td><td valign="top" class="mail"></td></tr><tr><td valign="top">Sent at</td><td valign="top" class="sentAt"></td></tr><tr><td valign="top">Subject</td><td valign="top" class="subject"></td></tr><tr><td valign="top">Message</td><td valign="top"><pre class="contents"></pre></td></tr></table></div>');
+        element.find('.mail').text(data['recipient']);
+        element.find('.subject').text(data['subject']);
+        element.find('.contents').text(data['contents']);
+        element.find('.sentAt').text(data['sentAt']);
+        $.featherlight(element, {});
+    })
+}
+
+function updateTable() {
+    var queryPath = $('#filter-mail').val();
+    $('#table').DataTable().ajax.url('/api/search?q=' + queryPath);
+    $('#table').DataTable().ajax.reload(null, false);
+}
+
+$(document).ready(initializeTable);
+--></script>
+</body>
+</html>
